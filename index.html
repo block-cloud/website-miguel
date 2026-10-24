@@ -10,8 +10,8 @@
 
   <style>
     /* =========================================================
-       VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
-       ========================================================= */
+        VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
+        ========================================================= */
     :root {
       --wine: #4a0404;
       --coffee-dark: #452815;
@@ -67,8 +67,8 @@
     }
 
     /* =========================================================
-       HEADER
-       ========================================================= */
+        HEADER
+        ========================================================= */
     .site-header {
       position: fixed; inset: 0 0 auto; z-index: 30;
       border-bottom: 1px solid transparent;
@@ -117,8 +117,8 @@
     .menu-toggle { display: none; width: 42px; height: 42px; border-radius: 50%; background: transparent; color: white; border: 1px solid var(--line); cursor: pointer; }
 
     /* =========================================================
-       HERO & FORM
-       ========================================================= */
+        HERO (SEM O FORMULÁRIO)
+        ========================================================= */
     .hero {
       min-height: 100svh; display: flex; align-items: center;
       position: relative; overflow: hidden; isolation: isolate; background: var(--near-black);
@@ -136,15 +136,15 @@
       background: radial-gradient(circle, rgba(128,0,0,.22), rgba(69,40,21,.10) 45%, transparent 70%);
       filter: blur(12px);
     }
-    .hero-inner { padding: 150px 0 90px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, .72fr); gap: clamp(35px, 7vw, 100px); align-items: center; }
-    .hero-copy { max-width: 720px; }
+    .hero-inner { padding: 150px 0 90px; display: grid; grid-template-columns: 1fr; gap: clamp(35px, 7vw, 100px); align-items: center; }
+    .hero-copy { max-width: 800px; }
     
     .availability { display: inline-flex; align-items: center; gap: 9px; border: 1px solid var(--line); background: rgba(0,0,0,.2); border-radius: 999px; padding: 7px 12px; color: rgba(255,255,255,.8); font-size: .78rem; margin-bottom: 25px; }
     .status-dot { width: 7px; height: 7px; background: #9cb88c; border-radius: 50%; box-shadow: 0 0 0 4px rgba(156,184,140,.12); }
     
     .hero h1 { margin: 0; font-size: clamp(3.2rem, 7.4vw, 6.9rem); line-height: .94; letter-spacing: -.075em; font-weight: 760; }
     .hero h1 span { display: block; color: #c89b7b; }
-    .hero-lede { max-width: 570px; color: rgba(255,255,255,.74); font-size: clamp(1rem,1.5vw,1.15rem); margin: 27px 0 30px; }
+    .hero-lede { max-width: 650px; color: rgba(255,255,255,.74); font-size: clamp(1rem,1.5vw,1.15rem); margin: 27px 0 30px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
     
     .hero-meta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 38px; color: rgba(255,255,255,.58); font-size: .79rem; }
@@ -153,7 +153,7 @@
     
     .hero-metrics {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px; margin-top: 28px; max-width: 520px;
+      gap: 14px; margin-top: 28px; max-width: 650px;
     }
     .metric {
       background: rgba(255,255,255,.04); border: 1px solid var(--line);
@@ -163,39 +163,12 @@
     .metric strong { font-size: clamp(1.2rem, 2vw, 1.8rem); line-height: 1; letter-spacing: -.06em; color: #f3d4be; }
     .metric span { color: rgba(255,255,255,.68); font-size: .76rem; line-height: 1.4; }
 
-    .contact-card {
-      background: rgba(16,18,18,.76); border: 1px solid rgba(255,255,255,.17);
-      border-radius: 25px; padding: clamp(22px,3vw,31px); box-shadow: 0 28px 80px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.07);
-      backdrop-filter: blur(20px);
-    }
-    .card-top { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; margin-bottom: 24px; }
-    .card-top h2 { margin: 0; font-size: 1.2rem; letter-spacing: -.035em; }
-    .card-top p { margin: 7px 0 0; font-size: .83rem; color: var(--muted); }
-    .card-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: rgba(128,0,0,.24); border: 1px solid rgba(128,0,0,.45); font-size: 1.15rem; }
-    
-    .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: .77rem; color: rgba(255,255,255,.78); margin-bottom: 7px; }
-    .field input, .field textarea {
-      width: 100%; color: white; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.13);
-      border-radius: 11px; outline: none; padding: 12px 13px; font-size: .88rem;
-      transition: border-color .2s, background .2s;
-    }
-    .field input:focus, .field textarea:focus { border-color: #9c5b3c; background: rgba(255,255,255,.07); }
-    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,.34); }
-    .field textarea { min-height: 90px; resize: vertical; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .contact-card .button { width: 100%; margin-top: 4px; }
-    .form-note, .form-status { font-size: .74rem; color: rgba(255,255,255,.49); margin: 12px 0 0; }
-    .form-status { min-height: 1.2em; color: #d7bca9; }
-    .form-status[data-state="success"] { color: #b9d5a9; }
-    .form-status[data-state="error"] { color: #efad9a; }
-
     .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.5); font-size: .7rem; letter-spacing: .17em; text-transform: uppercase; display: flex; gap: 10px; align-items: center; }
     .scroll-cue::after { content: ""; height: 25px; width: 1px; background: linear-gradient(transparent,#c89b7b); }
 
     /* =========================================================
-       INTEREST STRIP
-       ========================================================= */
+        INTEREST STRIP
+        ========================================================= */
     .interest-strip { background: var(--near-black); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
     .interest-inner { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; padding: 19px 0; }
     .interest-inner span { display: inline-flex; align-items: center; gap: 10px; padding: 0 22px; color: rgba(255,255,255,.66); font-size: .8rem; }
@@ -203,8 +176,8 @@
     .interest-inner b { color: #c89b7b; font-size: .85rem; }
 
     /* =========================================================
-       ABOUT
-       ========================================================= */
+        ABOUT
+        ========================================================= */
     .about-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(40px,8vw,110px); align-items: start; }
     .portrait-wrap { position: relative; max-width: 410px; }
     .portrait {
@@ -225,8 +198,8 @@
     .fact span { display: block; color: var(--muted); font-size: .74rem; margin-top: 5px; }
 
     /* =========================================================
-       SKILLS
-       ========================================================= */
+        SKILLS
+        ========================================================= */
     .skills-section { background: linear-gradient(180deg, var(--near-black), var(--ink)); }
     .skill-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
     .skill-card {
@@ -243,8 +216,8 @@
     .tag { border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; color: rgba(255,255,255,.73); font-size: .76rem; background: rgba(255,255,255,.025); }
 
     /* =========================================================
-       PROJECTS
-       ========================================================= */
+        PROJECTS
+        ========================================================= */
     .project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
     .project-card { border: 1px solid var(--line); background: rgba(255,255,255,.028); border-radius: 22px; overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s; box-shadow: 0 12px 35px rgba(0,0,0,.08); }
     .project-card:hover { transform: translateY(-4px); border-color: rgba(200,155,123,.4); box-shadow: 0 18px 45px rgba(0,0,0,.17); }
@@ -265,8 +238,8 @@
     .text-link:hover { color: white; }
 
     /* =========================================================
-       LIFE / INTERESTS
-       ========================================================= */
+        LIFE / INTERESTS
+        ========================================================= */
     .life-section { background: var(--near-black); }
     .life-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
     .life-feature { padding: clamp(25px,4vw,42px); border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(135deg,rgba(69,40,21,.25),rgba(255,255,255,.025)); min-height: 300px; position: relative; overflow: hidden; }
@@ -281,8 +254,8 @@
     .life-item p { margin: 0; color: var(--muted); font-size: .82rem; }
 
     /* =========================================================
-       CLOSING & FOOTER
-       ========================================================= */
+        CLOSING & FOOTER
+        ========================================================= */
     .closing { padding: 105px 0; background: linear-gradient(135deg,var(--wine),var(--near-black) 68%); border-top: 1px solid var(--line); }
     .closing-inner { display: flex; align-items: end; justify-content: space-between; gap: 35px; }
     .closing h2 { max-width: 690px; font-size: clamp(2.6rem,6vw,5.3rem); line-height: .98; letter-spacing: -.07em; margin: 15px 0 20px; }
@@ -307,8 +280,8 @@
     .back-top { white-space: nowrap; }
 
     /* =========================================================
-       MODALS / POP-UPS (NOVOS)
-       ========================================================= */
+        MODALS / POP-UPS (NOVOS)
+        ========================================================= */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 1000;
       background: rgba(10, 11, 11, 0.78);
@@ -359,8 +332,8 @@
     }
 
     /* =========================================================
-       MOTION & RESPONSIVE
-       ========================================================= */
+        MOTION & RESPONSIVE
+        ========================================================= */
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) {
@@ -372,7 +345,6 @@
       .hero-inner { grid-template-columns: 1fr; padding-top: 145px; gap: 45px; }
       .hero-copy { max-width: 760px; }
       .hero-metrics { max-width: 100%; }
-      .contact-card { max-width: 600px; }
       .about-grid { grid-template-columns: .75fr 1.25fr; gap: 35px; }
       .skill-grid { grid-template-columns: repeat(2,1fr); }
       .closing-inner { align-items: flex-start; flex-direction: column; }
@@ -397,7 +369,6 @@
       .hero-inner { padding: 125px 0 70px; }
       .hero h1 { font-size: clamp(3.1rem,16vw,5.1rem); }
       .hero-metrics { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; gap: 0; }
       .section { padding: 78px 0; }
       .about-grid, .life-grid, .project-grid { grid-template-columns: 1fr; }
       .portrait-wrap { max-width: 360px; margin: 0 auto; width: 100%; }
@@ -427,19 +398,6 @@
     </div>
   </div>
 
-  <!-- POP-UP 2: AVISO APÓS ENVIO DE MENSAGEM -->
-  <div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successTitle">
-    <div class="modal-card">
-      <div class="modal-badge">✉️ Mensagem Enviada</div>
-      <h3 id="successTitle">Obrigado pelo contato!</h3>
-      <p>Recebi sua mensagem com sucesso. Por favor, <strong>aguarde o meu retorno</strong> que responderei no menor tempo possível.</p>
-      <p>É muito importante ficar atento à sua <strong>caixa de e-mail</strong> (inclusive na aba de <strong>spam / lixo eletrônico</strong>) para não perder a resposta!</p>
-      <div class="modal-actions">
-        <button class="button primary" id="closeSuccessModal">Fechar e continuar</button>
-      </div>
-    </div>
-  </div>
-
   <!-- HEADER -->
   <header class="site-header" id="top">
     <div class="container nav">
@@ -458,9 +416,7 @@
         <a href="#habilidades">Habilidades</a>
         <a href="#projetos">Projetos</a>
         <a href="#interesses">Interesses</a>
-        <a href="#contato">Contato</a>
       </nav>
-      <a class="nav-cta" href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
     </div>
   </header>
@@ -509,40 +465,6 @@
             </div>
           </div>
         </div>
-
-        <!-- FORMULÁRIO -->
-        <aside class="contact-card" id="formulario">
-          <div class="card-top">
-            <div>
-              <h2>Tem uma ideia? Vamos conversar.</h2>
-              <p>Me conte um pouco sobre o que você tem em mente.</p>
-            </div>
-            <div class="card-mark" aria-hidden="true">↗</div>
-          </div>
-          <form id="contactForm">
-            <div class="form-row">
-              <div class="field">
-                <label for="firstName">Nome</label>
-                <input id="firstName" name="nome" type="text" placeholder="Seu nome" autocomplete="given-name" required>
-              </div>
-              <div class="field">
-                <label for="lastName">Sobrenome</label>
-                <input id="lastName" name="sobrenome" type="text" placeholder="Seu sobrenome" autocomplete="family-name" required>
-              </div>
-            </div>
-            <div class="field">
-              <label for="email">E-mail</label>
-              <input id="email" name="email" type="email" placeholder="voce@exemplo.com" autocomplete="email" required>
-            </div>
-            <div class="field">
-              <label for="message">Mensagem</label>
-              <textarea id="message" name="mensagem" placeholder="No que você está pensando?" maxlength="2000" required></textarea>
-            </div>
-            <button class="button primary" id="submitButton" type="submit">Enviar mensagem <span aria-hidden="true">↗</span></button>
-            <p class="form-note">Resposta rápida garantida. Seus dados são enviados com segurança.</p>
-            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-          </form>
-        </aside>
       </div>
       <a class="scroll-cue" href="#sobre">Continue explorando</a>
     </section>
