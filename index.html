@@ -41,7 +41,7 @@
     }
     body::selection { background: var(--red); color: white; }
     a { color: inherit; text-decoration: none; }
-    button, input, textarea { font: inherit; }
+    button { font: inherit; }
     img, video { display: block; max-width: 100%; }
     .container { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
 
@@ -113,7 +113,6 @@
     .nav-cta:hover, .button:hover { transform: translateY(-2px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.42); }
     .button.primary { background: var(--wine); border-color: var(--wine); }
     .button.primary:hover { background: var(--red); border-color: var(--red); }
-    .button:disabled { cursor: wait; transform: none; }
     .menu-toggle { display: none; width: 42px; height: 42px; border-radius: 50%; background: transparent; color: white; border: 1px solid var(--line); cursor: pointer; }
 
     /* =========================================================
@@ -804,8 +803,7 @@
           <p>Se você tem uma pergunta, uma ideia interessante ou quer trocar experiências sobre tecnologia, pode me chamar.</p>
         </div>
         <div class="closing-actions">
-          <a class="button primary" href="#formulario">Enviar mensagem ↗</a>
-          <a class="button" href="https://github.com/block-cloud" target="_blank" rel="noreferrer">Meu GitHub ↗</a>
+          <a class="button primary" href="https://github.com/block-cloud" target="_blank" rel="noreferrer">Meu GitHub ↗</a>
         </div>
       </div>
     </section>
@@ -838,9 +836,6 @@
     /* =========================================================
        CONFIGURAÇÕES E DADOS
        ========================================================= */
-    const WEBHOOK_URL = "https://n8n.nexus-universe.space/webhook/contato-portfolio";
-    const CONFIGURED_WEBHOOK_URL = WEBHOOK_URL || document.body.dataset.webhookUrl || "";
-
     const SOCIAL_LINKS = [
       { name: "GitHub",     href: "https://github.com/block-cloud",         icon: "assets/icons/github-white.png",  fallback: "GH", label: "Meu GitHub" },
       { name: "Instagram",  href: "https://www.instagram.com/miguel.pngfile/", icon: "assets/icons/Instagram.png",    fallback: "◎", label: "Meu Instagram" },
@@ -853,8 +848,6 @@
        ========================================================= */
     const betaModal = document.getElementById("betaModal");
     const closeBetaModalBtn = document.getElementById("closeBetaModal");
-    const successModal = document.getElementById("successModal");
-    const closeSuccessModalBtn = document.getElementById("closeSuccessModal");
 
     // Abrir pop-up Beta automaticamente ao carregar
     window.addEventListener("DOMContentLoaded", () => {
@@ -867,16 +860,9 @@
       betaModal.classList.remove("active");
     });
 
-    closeSuccessModalBtn.addEventListener("click", () => {
-      successModal.classList.remove("active");
-    });
-
     // Fechar ao clicar fora do card do modal
     betaModal.addEventListener("click", (e) => {
       if (e.target === betaModal) betaModal.classList.remove("active");
-    });
-    successModal.addEventListener("click", (e) => {
-      if (e.target === successModal) successModal.classList.remove("active");
     });
 
     /* =========================================================
@@ -952,87 +938,6 @@
       socialsContainer.appendChild(link);
     });
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* =========================================================
-       FORM SUBMISSION & SUCCESS POP-UP
-       ========================================================= */
-    const contactForm = document.getElementById("contactForm");
-    const formStatus = document.getElementById("formStatus");
-    const submitButton = document.getElementById("submitButton");
-
-    const setFormStatus = (message, state = "") => {
-      formStatus.textContent = message;
-      if (state) formStatus.dataset.state = state;
-      else delete formStatus.dataset.state;
-    };
-
-    contactForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      if (!CONFIGURED_WEBHOOK_URL || CONFIGURED_WEBHOOK_URL.includes("SEU-DOMINIO")) {
-        setFormStatus("O webhook ainda não foi configurado. Adicione a URL de produção no JavaScript.", "error");
-        return;
-      }
-      const formData = new FormData(contactForm);
-      const payload = {
-        nome: String(formData.get("nome") || "").trim(),
-        sobrenome: String(formData.get("sobrenome") || "").trim(),
-        email: String(formData.get("email") || "").trim(),
-        mensagem: String(formData.get("mensagem") || "").trim(),
-        origem: window.location.hostname || "miguel.dev",
-        enviadoEm: new Date().toISOString()
-      };
-
-      if (!payload.nome || !payload.sobrenome || !payload.email || !payload.mensagem) {
-        setFormStatus("Preencha todos os campos para enviar.", "error");
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitButton.setAttribute("aria-busy", "true");
-      setFormStatus("Enviando a sua mensagem…");
-
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
-
-      try {
-        const fields = new FormData();
-        fields.append("nome", payload.nome);
-        fields.append("sobrenome", payload.sobrenome);
-        fields.append("email", payload.email);
-        fields.append("mensagem", payload.mensagem);
-        fields.append("origem", payload.origem);
-        fields.append("enviadoEm", payload.enviadoEm);
-
-        const response = await fetch(CONFIGURED_WEBHOOK_URL, {
-          method: "POST",
-          mode: "no-cors",
-          credentials: "omit",
-          body: fields,
-          signal: controller.signal
-        });
-
-        if (response.type !== "opaque" && !response.ok) {
-          throw new Error("O webhook respondeu com status " + response.status);
-        }
-
-        setFormStatus("Mensagem enviada com sucesso!", "success");
-        contactForm.reset();
-
-        // Abre o pop-up de sucesso com o aviso de retorno e spam
-        successModal.classList.add("active");
-
-      } catch (error) {
-        console.error("Erro ao enviar formulário:", error);
-        const message = error.name === "AbortError"
-          ? "O servidor demorou muito para responder. Tente novamente."
-          : "Não foi possível enviar. Verifique sua conexão e tente novamente.";
-        setFormStatus(message, "error");
-      } finally {
-        clearTimeout(timeout);
-        submitButton.disabled = false;
-        submitButton.removeAttribute("aria-busy");
-      }
-    });
   </script>
 </body>
 </html>
